@@ -68,3 +68,31 @@ If you want to change the number of minions, open `Vagrantfile` in your favorite
 
 To change parameters of VMs (like number of vCPUS or amount of memory), please, refer to [Vagrant Documentation](https://docs.vagrantup.com/v2/virtualbox/configuration.html)
 
+
+###Using with tmux tmuxinator###
+
+Working over SSH with multiple VMs without terminal multiplexer is painful, so I strongly recommend to use either `tmux` or `screen` for that.
+
+If you're using tmux, there is an excellent little utility called [tmuxinator](https://github.com/tmuxinator/tmuxinator), which allows you to 
+
+I'm using the following configuration (can be replicated by running `mux create salt_vagrant` and pasting the following snippet to the opened YAML file):
+
+```
+# ~/.tmuxinator/salt_vagrant.yml
+
+name: salt_vagrant
+project_root: .
+
+
+windows:
+  - vagrant:
+      layout: main-vertical
+      panes:
+        - vagrant ssh master
+        - vagrant ssh minion1
+        - vagrant ssh minion2
+```
+
+Which gives me the following 3-pane layout, where main pain automatically connected to master and secondary panes are connected to minions:
+
+![tmuxinator salt-playground](http://drive.google.com/uc?export=view&id=0B2LdLvvlL_sPX2NBdTBtZ2xYS3M)
