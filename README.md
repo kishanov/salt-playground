@@ -24,8 +24,8 @@ $ vagrant ssh master
 $ sudo salt-key -y -A
 ```
 As a result you should see the following message:
+
 ```
-$ vagrant@master:~$ sudo salt-key -y -A
 The following keys are going to be accepted:
 Unaccepted Keys:
 minion1
@@ -42,7 +42,6 @@ And see the following output:
 
 
 ```
-$ vagrant@master:~$ sudo salt '*' test.ping
 minion1:
     True
     minion2:
@@ -55,4 +54,17 @@ To destroy an environment, run the following command (from `salt-playground` dir
 vagrant destroy
 ```
 It will kill all VMs so you can reprovision everything and start working from scratch
+
+
+###Usage###
+
+For each minion, Vagrant will bootstrap a VM named `minion[MINION_NUMBER]`, where MINION_NUMBER starts from 1. For example, to access `minion1` use the following command:
+
+```
+$ vagrant ssh minion1
+```
+
+If you want to change the number of minions, open `Vagrantfile` in your favorite editor, locate `NODE_COUNT = 2` variable assignment and change the number to what you want (remember that it will create VMs on your computer, so try not to oversubscribe it).
+
+To change parameters of VMs (like number of vCPUS or amount of memory), please, refer to [Vagrant Documentation](https://docs.vagrantup.com/v2/virtualbox/configuration.html)
 
